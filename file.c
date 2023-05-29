@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "item.h"
-#include "PQ.h"
+#include "file.h"
 
 Pqf* read_entry(char* entry_name){
 	FILE* entry = NULL;
@@ -28,7 +25,7 @@ Pqf* read_entry(char* entry_name){
 		aux = strtok(NULL,";");
 	}
 	read = getline(&line,&len,entry);
-	aux = strtok(line,";")
+	aux = strtok(line,";");
 	origem = atoi(aux);
 	while(aux!=NULL){
 		destino = atoi(aux);
