@@ -1,7 +1,7 @@
 #define  _POSIX_C_SOURCE 200810L
 #include "file.h"
 
-double** read_entry(char* entry_name, int* o,int* d,int* v){
+Edge*** read_entry(char* entry_name, int* o,int* d,int* v){
 	FILE* entry = NULL;
 	int origem;
 	int destino;
@@ -37,13 +37,13 @@ double** read_entry(char* entry_name, int* o,int* d,int* v){
 		
 	read = getline(&line,&len,entry);
 	v_start = atof(line);
-	double** vet_edges = malloc(n_vertices*sizeof(double*));
+	Edge*** vet_edges = malloc(n_vertices*sizeof(Edge**));
 	for(int i = 0 ; i < n_vertices; i++){
-		vet_edges[i] = malloc(n_vertices*sizeof(double));
+		vet_edges[i] = malloc(n_vertices*sizeof(Edge*));
 	}
 	for(int i = 0; i < n_vertices; i++){
 		for(int j = 0; j < n_vertices; j++)
-			vet_edges[i][j] = 0;
+			vet_edges[i][j] = NULL;
 	}
 	printf("%d %d %lf %d\n", origem,destino,v_start,n_edges);
 	for(int i = 0; i < n_edges ; i++){
@@ -64,7 +64,7 @@ double** read_entry(char* entry_name, int* o,int* d,int* v){
 		}
 		
 		printf("creating edge with %d %d position\n",edge_s,edge_d);
-		vet_edges[edge_s-1][edge_d-1] = value;
+		vet_edges[edge_s-1][edge_d-1] = create_edge(v_start,value);
 	}
 	*o = origem;
     *v = n_vertices;	

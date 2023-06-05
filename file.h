@@ -7,8 +7,7 @@
 #include <string.h>
 #include "dijkstra.h"
 #include "list.h"
-
-double** read_entry(char* entry_name, int* o,int* d,int* v);
+Edge*** read_entry(char* entry_name, int* o,int* d,int* v);
 
 
 #endif
