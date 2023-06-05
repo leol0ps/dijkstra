@@ -14,3 +14,7 @@ void print_edge(Edge* a, int o, int d){
 			return;
 	printf("origem %d destino %d vel %lf\n",o,d,a->dist );
 }
+
+void free_edge(Edge* a){
+	free(a);
+}

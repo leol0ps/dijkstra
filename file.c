@@ -69,6 +69,45 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v){
 	*o = origem;
     *v = n_vertices;	
 	*d = destino;
+	int att_o,att_d;
+	double att_t;
+	double att_vel;
+	int criada = 0;
+	List* list;
+	while ((read = getline(&line, &len, entry)) != -1){
+		aux = strtok(line,";");
+		int j = 0;
+		while(aux!=NULL){
+			switch(j){
+				case 0:
+					att_t = atof(aux);
+					break;
+				case 1:
+					att_o = atoi(aux);
+					break;
+				case 2:
+					att_d = atoi(aux);
+					break;
+				case 3:
+					att_vel = atof(aux);
+					break;	
+			  	}
+			j++;
+				
+			aux = strtok(NULL,";");
+		}
+		if(!criada){
+			list = create_list(att_o,att_d,att_t,att_vel);	
+			criada++;
+		}
+		else{
+			insert(list,att_o,att_d,att_t,att_vel);
+		}
+
+	}
+	free(line);
+	print_list(list);
+	free_list(list);
 	return vet_edges;
 }
 

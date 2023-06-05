@@ -9,4 +9,5 @@ typedef struct edge{
 
 Edge* create_edge(double vel,double dis);
 void print_edge(Edge* a, int o, int d);
+void free_edge(Edge* a);
 #endif
