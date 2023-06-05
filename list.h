@@ -1,15 +1,13 @@
 #ifndef LIST_H
 #define LIST_H
-#include "point.h"
+#include "dijkstra.h"
 typedef struct list{
-    Point* ponto;
+    Edge* edge;
     struct list* next;
 }List;
 List* remove_first(List* list);
-List* create_list(Point* a);
-void insert(List* list,Point* a);
+List* create_list(Edge* a);
+void insert(List* list,Edge* a);
 void free_list(List* a);
 void print_list(List* a, int dimension);
-Point** vetor_de_pontos(List* a, int size);
-void free_vetor_de_pontos(Point** a);
 #endif

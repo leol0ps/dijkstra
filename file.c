@@ -1,6 +1,6 @@
 #include "file.h"
 
-Pqf* read_entry(char* entry_name){
+double** read_entry(char* entry_name){
 	FILE* entry = NULL;
 	int origem;
 	int destino;
@@ -10,7 +10,7 @@ Pqf* read_entry(char* entry_name){
 	char* aux = NULL;
 	int n_vertices;
 	int n_edges;
-	int edge_arg[3];
+	int edge_s,edge_d;
 	double v_start;
 	entry = fopen(entry_name,"r");
 	if(entry == NULL){
@@ -34,22 +34,31 @@ Pqf* read_entry(char* entry_name){
 	
 	read = getline(&line,&len,entry);
 	v_start = atof(line);
-	Edge** vet_edges = malloc(sizeof(Edge*));
+	double** vet_edges = malloc(sizeof(double*));
+	for(int i = 0 ; i < n_edges; i++){
+		vet_edges = malloc(n_edges*sizeof(double));
+	}
+	for(int i = 0; i < n_edges; i++){
+		for(int j = 0; j < n_edges; j++)
+			vet_edges[i][j] = 0;
+	}
 	for(int i = 0; i < n_edges ; i++){
 		read = getline(&line,&len,entry);
 		aux = strtok(line,";");
-		edge_arg[0] = atoi(aux);
+		edge_s = atoi(aux);
 		int j = 0;
 		while(aux != NULL){
-			if(j!=0 && j < 3){
-				edge_arg[j] = atoi(aux);
+			if(j==0){
+				edge_d = atoi(aux);
+			}
+			else{
+				vet_edges[edge_s][edge_d] = atof(aux);
 			}
 			j++;
 			aux = strtok(NULL,";");
 		}
-		vet_edges[i] = create_edge(edge_arg[0],edge_arg[1],edge_arg[2]);
 	}
-
+	return vet_edges;
 }
 
 

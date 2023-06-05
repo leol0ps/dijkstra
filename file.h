@@ -6,7 +6,8 @@
 #include "PQ.h"
 #include <string.h>
 #include "dijkstra.h"
-Pqf* read_entry(char* entry_name);
+#include "list.h"
+double** read_entry(char* entry_name);
 
 
 
