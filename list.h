@@ -5,6 +5,7 @@ typedef struct list{
     Point* ponto;
     struct list* next;
 }List;
+List* remove_first(List* list);
 List* create_list(Point* a);
 void insert(List* list,Point* a);
 void free_list(List* a);

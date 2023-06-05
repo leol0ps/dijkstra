@@ -7,7 +7,13 @@ List* create_list(Point* a){
     return b;
 }
 
-
+List* remove_first(List* list){
+	if(list == NULL)
+				return NULL;
+	List* b = list->next;
+	free(list);
+	return b;
+}
 void insert(List* list,Point* a){
     if(list->next != NULL){
         insert(list->next,a);
