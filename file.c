@@ -1,6 +1,7 @@
+#define  _POSIX_C_SOURCE 200810L
 #include "file.h"
 
-double** read_entry(char* entry_name){
+double** read_entry(char* entry_name, int* o,int* d,int* v){
 	FILE* entry = NULL;
 	int origem;
 	int destino;
@@ -16,6 +17,7 @@ double** read_entry(char* entry_name){
 	if(entry == NULL){
 		printf("sem arquivo \n");
 		return NULL;
+	
 	}
 	read = getline(&line,&len,entry);
 	aux = strtok(line,";");
@@ -31,17 +33,18 @@ double** read_entry(char* entry_name){
 		destino = atoi(aux);
 		aux = strtok(NULL,";");
 	}
-	
+		
 	read = getline(&line,&len,entry);
 	v_start = atof(line);
-	double** vet_edges = malloc(sizeof(double*));
+	double** vet_edges = malloc(n_vertices*sizeof(double*));
 	for(int i = 0 ; i < n_edges; i++){
-		vet_edges = malloc(n_edges*sizeof(double));
+		vet_edges[i] = malloc(n_vertices*sizeof(double));
 	}
-	for(int i = 0; i < n_edges; i++){
-		for(int j = 0; j < n_edges; j++)
+	for(int i = 0; i < n_vertices; i++){
+		for(int j = 0; j < n_vertices; j++)
 			vet_edges[i][j] = 0;
 	}
+	printf("%d %d %lf\n", origem,destino,v_start);
 	for(int i = 0; i < n_edges ; i++){
 		read = getline(&line,&len,entry);
 		aux = strtok(line,";");
@@ -52,12 +55,15 @@ double** read_entry(char* entry_name){
 				edge_d = atoi(aux);
 			}
 			else{
-				vet_edges[edge_s][edge_d] = atof(aux);
+				vet_edges[edge_s-1][edge_d-1] = atof(aux);
 			}
 			j++;
 			aux = strtok(NULL,";");
 		}
 	}
+	*o = origem;
+    *v = n_vertices;	
+	*d = destino;
 	return vet_edges;
 }
 

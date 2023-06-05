@@ -1,8 +1,10 @@
 #ifndef LIST_H
 #define LIST_H
+#include <stdlib.h>
 #include "dijkstra.h"
 typedef struct list{
     Edge* edge;
+	double time;
     struct list* next;
 }List;
 List* remove_first(List* list);

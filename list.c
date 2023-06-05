@@ -14,7 +14,7 @@ List* remove_first(List* list){
 	free(list);
 	return b;
 }
-void insert(List* list,edge* a){
+void insert(List* list,Edge* a){
     if(list->next != NULL){
         insert(list->next,a);
     }
