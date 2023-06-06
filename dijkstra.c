@@ -1,6 +1,6 @@
 #include "dijkstra.h"
 #include <float.h>
-#define P (wt[j] + (arestas[j][i]->dist/arestas[j][i]->vel))
+#define P (wt[j] + edge_time_spent(arestas[j][i]))
 Edge* create_edge(double vel, double dis){
 
 	Edge* a = malloc(sizeof(Edge));
@@ -9,6 +9,11 @@ Edge* create_edge(double vel, double dis){
 	return a;
 }
 
+double edge_time_spent(Edge* a){
+	if(a == NULL)
+			return DBL_MAX;
+	return a->dist/a->vel;
+}
 void print_edge(Edge* a, int o, int d){
 	if(a ==NULL)
 			return;
@@ -20,22 +25,16 @@ void free_edge(Edge* a){
 }
 
 int* dijkstra(Edge*** arestas, int v,List* att,int origem, int destino){
-	for(int i = 0; i < v; i++){
-		for(int j = 0; j < v; j++){
-			if(arestas[i][j]->dist = 0){
-				arestas[i][j]->dist = DBL_MAX;
-			}
-		}
-	}
-	int* st = malloc(v*sizeof(int));
-	int* wt = malloc(v*sizeof(int));
+	printf("%d %d origem e destino dijkstra\n", origem, destino);
 	int j,w;
+	int* st = malloc(v*sizeof(int));
+	double* wt = malloc(v*sizeof(double));
 	Edge** t;
 	Pqf* heap = PQ_init(v);	
 	for(int i = 0; i < v; i++){
 		st[i] = -1;
 		wt[i] = DBL_MAX;				
-		PQ_insert(heap,i,(arestas[origem][i]->dist/arestas[origem][i]->vel));
+		PQ_insert(heap,i,DBL_MAX);
 	}
 	wt[origem] = 0;
 	PQ_decrease_key(origem,0,heap);
