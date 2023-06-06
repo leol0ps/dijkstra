@@ -8,7 +8,7 @@ typedef struct edge{
 	double vel;
 	double dist;
 }Edge;
-
+int *dijkstra(Edge*** arestas, int v, List* att, int origem, int destino);
 Edge* create_edge(double vel,double dis);
 void print_edge(Edge* a, int o, int d);
 void free_edge(Edge* a);

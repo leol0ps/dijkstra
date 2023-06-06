@@ -19,6 +19,10 @@ int main(int argc, char** argv){
 	if(att==NULL){
 		printf("ta errado otario\n");
 	}
+	int* result = dijkstra(vet_edges,v,att,origem,destino);
+	for(int i = 0; i < v; i++){
+		printf("%d  \n", result[i]);
+	}
 	print_list(att);
 	free_list(att);
 	free_mat_edge(vet_edges,v);
