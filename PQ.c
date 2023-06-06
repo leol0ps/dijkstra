@@ -38,10 +38,11 @@ Pqf* PQ_init(int maxN) {
 	return fila;
 }
 
-void PQ_insert(Pqf* fila, Item v) {
+void PQ_insert(Pqf* fila, int v, double weight) {
     fila->n++;
-    fila->pq[fila->n] = v;
-    fila->map[id(v)] = fila->n;
+    fila->pq[fila->n].id =  v;
+	fila->pq[fila->n].value = weight;
+    fila->map[v] = fila->n;
     fix_up(fila->map,fila->pq, fila->n);
 }
 
@@ -76,5 +77,3 @@ void PQ_finish(Pqf* fila) {
     free(fila->map);
 	free(fila);
 }
-
-
