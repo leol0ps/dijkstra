@@ -7,7 +7,7 @@
 #include <string.h>
 #include "dijkstra.h"
 #include "list.h"
-Edge*** read_entry(char* entry_name, int* o,int* d,int* v);
-
+Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att);
+void free_mat_edge(Edge*** a, int n);
 
 #endif

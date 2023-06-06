@@ -1,7 +1,7 @@
 #define  _POSIX_C_SOURCE 200810L
 #include "file.h"
 
-Edge*** read_entry(char* entry_name, int* o,int* d,int* v){
+Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	FILE* entry = NULL;
 	int origem;
 	int destino;
@@ -105,10 +105,20 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v){
 		}
 
 	}
+	*att = list;
 	free(line);
-	print_list(list);
-	free_list(list);
+	fclose(entry);
 	return vet_edges;
 }
 
+void free_mat_edge(Edge*** a, int n){
+	for(int i =0 ; i < n; i++){
+		for(int j = 0; j < n; j++){
+			free_edge(a[i][j]);	
+		}
+		free(a[i]);
+	}
+
+	free(a);
+}
 

@@ -18,3 +18,10 @@ void print_edge(Edge* a, int o, int d){
 void free_edge(Edge* a){
 	free(a);
 }
+
+int* dijkstra(Edge*** arestas, int v,List* att){
+
+
+
+
+}
