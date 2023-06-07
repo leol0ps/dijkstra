@@ -6,7 +6,7 @@
 int main(int argc, char** argv){
 	int origem;
 	int destino;
-	int v;
+	int v,path_size;
 	int count = 0;
 	List* att = NULL;
 	double time;
@@ -22,13 +22,13 @@ int main(int argc, char** argv){
 		printf("ta errado otario\n");
 	}
 	printf("%d %d \n", origem ,  destino);
-	int* result = rota(vet_edges,v,(origem-1),(destino-1),att,&time);
-	for(int i = 0; i < v; i++){
+	int* result = rota(vet_edges,v,(origem-1),(destino-1),att,&time,&path_size);
+	for(int i = 0; i < path_size; i++){
 		printf("%d  \n", result[i]+1);
 	}
 
-	print_list(att);
-	free_list(att);
+	//print_list(att);
+	//free_list(att);
 	double distance = 0;
 	int k = destino-1;
 	int x;

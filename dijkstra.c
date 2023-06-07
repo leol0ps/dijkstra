@@ -74,7 +74,7 @@ void check_att(List** a, Edge*** edges, double time){
 		printf("passou aqui\n");
 	}
 }
-int* rota(Edge*** arestas, int v, int origem, int destino, List* att, int* path_time){
+int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size){
 //	int* st = malloc(v*sizeof(int));
 //	double* wt = malloc(v*sizeof(double));
 	int* st = NULL;
@@ -103,6 +103,8 @@ int* rota(Edge*** arestas, int v, int origem, int destino, List* att, int* path_
 		wt = NULL;
 		st =  NULL;	
 	}
+	*path_size = j;
+	printf("valor de j %d \n",j);
 	*path_time = total_time;	
 	return path;	
 }
