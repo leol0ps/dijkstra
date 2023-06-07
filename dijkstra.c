@@ -59,19 +59,19 @@ int* dijkstra(Edge*** arestas, int v,int origem, int destino, double** time){
 	PQ_finish(heap);
  	return st;
 }
-void check_att(List* a, Edge*** edges, double time){
-	if(a == NULL)
+void check_att(List** a, Edge*** edges, double time){
+	if(*a == NULL)
 			return;
-	if(time_first(a)> time)
+	if(time_first(*a)> time)
 			return;
 	else{
 		printf("chegou aqui\n");
-	    int i = att_origem(a)-1;
-   	   	int j = att_destino(a)-1;   
- 	    change_edge_vel(edges[i][j],get_att_vel(a));
-		a = remove_first(a);
+	    int i = att_origem(*a)-1;
+   	   	int j = att_destino(*a)-1;   
+ 	    change_edge_vel(edges[i][j],get_att_vel(*a));
+		*a = remove_first(*a);
 		check_att(a,edges,time);
-
+		printf("passou aqui\n");
 	}
 }
 int* rota(Edge*** arestas, int v, int origem, int destino, List* att, int* path_time){
@@ -96,7 +96,7 @@ int* rota(Edge*** arestas, int v, int origem, int destino, List* att, int* path_
 		total_time += wt[last];
 	    printf("total time %lf\n",total_time);
 		i = last;
-		check_att(att,arestas,total_time);
+		check_att(&att,arestas,total_time);
 		path[j] = last;
 		free(st);
 		free(wt);
