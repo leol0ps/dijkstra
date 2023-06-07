@@ -89,7 +89,7 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 					att_d = atoi(aux);
 					break;
 				case 3:
-					att_vel = atof(aux);
+					att_vel = atof(aux)/3.6;
 					break;	
 			  	}
 			j++;
