@@ -37,6 +37,7 @@ int main(int argc, char** argv){
 	print_to_file(argv[2],result,path_size,distance,time);
 	free_mat_edge(vet_edges,v);
 	free(result);
+
 	printf("path time : %lf  e %lf \n", time,distance);
 	return 0;
 }

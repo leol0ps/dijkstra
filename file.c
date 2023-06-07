@@ -124,6 +124,15 @@ void free_mat_edge(Edge*** a, int n){
 void print_to_file(char* out_name, int* path, int path_size, double distance, double time){
 	FILE* out = NULL;
     out = fopen(out_name,"w");
+	int horas = (int)time/3600;
+	int horas_remove = (int)time % 3600;
+	int minutos = (int)horas_remove/60;
+	int	minutos_remove = (int)horas_remove % 60;
+	int segundos = (int)minutos_remove;
+   	double ms = time-(int)time;
+	char ms_str[100];
+	sprintf(ms_str,"%lf",ms);
+	char* after_comma = &ms_str[2];
 	if(out == NULL){
 		fprintf(stderr,"error opening %s\n", out_name);
 		return;
@@ -133,6 +142,6 @@ void print_to_file(char* out_name, int* path, int path_size, double distance, do
 	}
 	fprintf(out,"%d\n", path[path_size - 1] + 1);
 	fprintf(out,"%lf\n", distance/1000); // distance in kilometers
-	fprintf(out,"%lf\n",time);
+	fprintf(out,"%02d:%02d:%02d.%s\n",horas,minutos,segundos,after_comma);
 	fclose(out);
 }

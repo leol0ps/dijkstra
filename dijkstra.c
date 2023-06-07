@@ -113,6 +113,7 @@ int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* pa
 		total_distance += edge_distance(arestas[path[i-1]][path[i]]); 
 	}
 	*distance = total_distance;	
+	free_list(att);
 	return path;	
 }
 
