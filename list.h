@@ -1,7 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 #include <stdlib.h>
-#include "dijkstra.h"
 #include <stdio.h>
 typedef struct list{
 	int d;
@@ -15,4 +14,8 @@ List* create_list(int o, int d , double time,double vel);
 void insert(List* list, int o, int d, double time,double vel);
 void free_list(List* a);
 void print_list(List* a);
+double time_first(List* a);
+int att_origem(List* a);
+int att_destino(List* a);
+double get_att_vel(List* a);
 #endif

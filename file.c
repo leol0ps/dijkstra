@@ -36,7 +36,7 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	}
 		
 	read = getline(&line,&len,entry);
-	v_start = atof(line);
+	v_start = atof(line)/3.6; // division to convert from km/h to m/s
 	Edge*** vet_edges = malloc(n_vertices*sizeof(Edge**));
 	for(int i = 0 ; i < n_vertices; i++){
 		vet_edges[i] = malloc(n_vertices*sizeof(Edge*));

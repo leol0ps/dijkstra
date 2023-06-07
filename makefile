@@ -4,7 +4,7 @@
 # $^ => os nomes de todos os prerequisitos separados por espacos
 #
 #
-PROJ_NAME=trab1
+PROJ_NAME=trab2
 C_SOURCE=$(wildcard *.c)
 H_SOURCE=$(wildcard *.h)
 OBJ=$(C_SOURCE:.c=.o)

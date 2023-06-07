@@ -9,6 +9,8 @@ int main(int argc, char** argv){
 	int v;
 	int count = 0;
 	List* att = NULL;
+	double time;
+	double path_time;
 	Edge*** vet_edges = read_entry(argv[1],&origem,&destino,&v,&att);
 	for(int i = 0; i < v; i++){
 		for(int k = 0; k < v; k++){
@@ -20,13 +22,22 @@ int main(int argc, char** argv){
 		printf("ta errado otario\n");
 	}
 	printf("%d %d \n", origem ,  destino);
-	int* result = dijkstra(vet_edges,v,att,(origem-1),(destino-1));
+	int* result = rota(vet_edges,v,(origem-1),(destino-1),att,&time);
 	for(int i = 0; i < v; i++){
 		printf("%d  \n", result[i]+1);
 	}
+
 	print_list(att);
 	free_list(att);
+	double distance = 0;
+	int k = destino-1;
+	int x;
+	while((x = result[k])!=-1){ // quando a condicao e verdadeira significa que chegamos na raiz da spt
+		distance += edge_distance(vet_edges[x][k]);
+		k = x;
+	}
 	free_mat_edge(vet_edges,v);
-	printf("count %d \n",count);
+	free(result);
+	printf("path time : %lf  e %lf \n", time,distance);
 	return 0;
 }

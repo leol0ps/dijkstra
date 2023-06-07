@@ -1,5 +1,4 @@
 #include "list.h"
-
 List* create_list(int o, int d, double time,double vel){
     List* b = malloc(sizeof(List));
 	b->o = o;
@@ -9,13 +8,25 @@ List* create_list(int o, int d, double time,double vel){
     b->next = NULL;
     return b;
 }
-
+double time_first(List* a){
+	return a->time;
+}
+double get_att_vel(List *a){
+	return a->vel;
+}
 List* remove_first(List* list){
 	if(list == NULL)
 				return NULL;
 	List* b = list->next;
 	free(list);
 	return b;
+}
+int att_origem(List* a){
+
+	return a->o;
+}
+int att_destino(List* a){
+	return a->d;
 }
 void insert(List* list,int o, int d, double time,double vel){
     if(list->next != NULL){
