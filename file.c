@@ -121,4 +121,18 @@ void free_mat_edge(Edge*** a, int n){
 
 	free(a);
 }
-
+void print_to_file(char* out_name, int* path, int path_size, double distance, double time){
+	FILE* out = NULL;
+    out = fopen(out_name,"w");
+	if(out == NULL){
+		fprintf(stderr,"error opening %s\n", out_name);
+		return;
+	}	
+	for(int i = 0; i < path_size-1 ; i++){
+		fprintf(out,"%d;", path[i] +1);
+	}
+	fprintf(out,"%d\n", path[path_size - 1] + 1);
+	fprintf(out,"%lf\n", distance/1000); // distance in kilometers
+	fprintf(out,"%lf\n",time);
+	fclose(out);
+}

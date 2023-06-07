@@ -13,5 +13,5 @@ Edge* create_edge(double vel,double dis);
 void print_edge(Edge* a, int o, int d);
 void free_edge(Edge* a);
 double edge_distance(Edge* a);
-int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size);
+int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size, double* distance);
 #endif
