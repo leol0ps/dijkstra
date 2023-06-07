@@ -103,7 +103,8 @@ int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* pa
 		wt = NULL;
 		st =  NULL;	
 	}
-	*path_size = j;
+	path[j] = destino;
+	*path_size = j+1;
 	printf("valor de j %d \n",j);
 	*path_time = total_time;	
 	return path;	

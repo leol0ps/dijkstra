@@ -31,7 +31,7 @@ void fix_down(int* map,Item *a, int sz, int k){
 }
 
 Pqf* PQ_init(int maxN) {
-    Pqf* fila = malloc(sizeof(Pqf*));
+    Pqf* fila = malloc(sizeof(Pqf));
 	fila->pq =  malloc((maxN+1) * sizeof (Item));
     fila->map = malloc((maxN+1) * sizeof (int));
     fila->n = 0;
