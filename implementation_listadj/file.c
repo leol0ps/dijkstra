@@ -70,9 +70,9 @@ Adj** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	*o = origem;
     *v = n_vertices;	
 	*d = destino;
-	int att_o,att_d;
-	double att_t;
-	double att_vel;
+	int att_o = 0,att_d = 0;
+	double att_t = 0;
+	double att_vel = 0;
 	int criada = 0;
 	List* list;
 	while ((read = getline(&line, &len, entry)) != -1){

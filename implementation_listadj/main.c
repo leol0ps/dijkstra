@@ -8,11 +8,9 @@ int main(int argc, char** argv){
 	int origem;
 	int destino;
 	int v,path_size;
-	int count = 0;
 	List* att = NULL;
 	double distance = 0;
 	double time;
-	double path_time;
 	Adj** vet_edges = read_entry(argv[1],&origem,&destino,&v,&att);
 	/*for(int i = 0; i < v; i++){
 		for(int k = 0; k < v; k++){
@@ -20,7 +18,7 @@ int main(int argc, char** argv){
 			count++;
 		}
 	}*/
-	print_list(att);
+	/*print_list(att);
 	printf("%d %d \n", origem ,  destino);
 	for(int i = 0; i < v ; i++){
 		Adj* adj_aux = vet_edges[i];	
@@ -30,11 +28,11 @@ int main(int argc, char** argv){
 			adj_aux = adj_aux->next;
 		}
 	
-	}
+	}*/
 	int* result = rota(vet_edges,v,(origem-1),(destino-1),att,&time,&path_size,&distance);
-	for(int i = 0; i < path_size-1; i++){
+	/*for(int i = 0; i < path_size-1; i++){
 		printf("%d;", result[i]+1);
-	}
+	}*/
 	/*printf("%d\n",result[path_size-1]+1);
 	//print_list(att);
 	for(int i = 1; i < path_size; i++){

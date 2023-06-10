@@ -29,13 +29,13 @@ void free_edge(Edge* a){
 	free(a);
 }
 
-int* dijkstra(Adj** arestas, int v,int origem, int destino, double** time){
+int* dijkstra(Adj** arestas, int v,int origem, int destino, double** time, double** distance){
 	printf("%d %d origem e destino dijkstra\n", origem, destino);
 	int j,w;
 	Adj* t;
 	int* st = malloc(v*sizeof(int));
 	double* wt = malloc(v*sizeof(double));
-	double total_time = 0;
+	double* dist = malloc(v*sizeof(double));
 	Pqf* heap = PQ_init(v);	
 	for(int i = 0; i < v; i++){
 		st[i] = -1;
@@ -50,13 +50,15 @@ int* dijkstra(Adj** arestas, int v,int origem, int destino, double** time){
 			for(t = arestas[j]; t!= NULL ; t = t->next){
 				 if(P < wt[w = t->d]){
 				 	wt[w] = P;
+					dist[w] = t->dist;
 					PQ_decrease_key(w,P,heap);
 					st[w] = j;
 				 }
 			}
 		}
 	}
-	*time = wt; 
+	*time = wt;
+	*distance = dist;
 	PQ_finish(heap);
  	return st;
 }
@@ -77,28 +79,13 @@ List* check_att(List* a, Adj** edges, double time){
 		}
 	}
 	return aux;
-	/*List* aux = a->next;
-	if(a == NULL)
-			return a;
-	if(time_first(a) >= time)
-			return a;
-	else{
-		printf("chegou aqui\n");
-	    int i = att_origem(a)-1;
-   	   	int j = att_destino(a)-1;   
- 	    change_edge_vel(edges[i][j],get_att_vel(a));
-		printf("%lf %d",time_first(a), (aux ==NULL));
-		a = remove_first(a);
-		aux = check_att(aux,edges,time);
-		printf("passou aqui\n");
-		return aux;
-	}*/
 }
 int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size, double* distance){
 //	int* st = malloc(v*sizeof(int));
 //	double* wt = malloc(v*sizeof(double));
 	int* st = NULL;
 	double* wt;
+	double* dist;
 	double total_time = 0;
 	double total_distance = 0;
 	int* path = malloc(v*sizeof(int));
@@ -108,12 +95,13 @@ int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path
 	int j = 0;
 	while(i!=destino){
 		j++;
-		st = dijkstra(arestas,v,i,destino, &wt);
+		st = dijkstra(arestas,v,i,destino, &wt,&dist);
 		while(st[x]!= -1){ // condicao quebra na raiz da spt
 			last = x;
 			x = st[x];
 		}
 		x = destino;
+		total_distance += dist[last];
 		total_time += wt[last];
 	    printf("total time %lf\n",total_time);
 		i = last;
@@ -123,6 +111,8 @@ int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path
 		path[j] = last;
 		free(st);
 		free(wt);
+		free(dist);
+		dist = NULL;
 		wt = NULL;
 		st =  NULL;	
 	}
@@ -131,9 +121,7 @@ int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path
 	*path_size = j;
 	printf("valor de j %d \n",j);
 	*path_time = total_time;
-	for(int i = 1; i < j; i++){
-		total_distance += 1; 
-	}
+	*distance = total_distance;
 	*distance = total_distance;	
 	free_list(att);
 	return path;	
