@@ -63,7 +63,7 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 		
 		}
 		
-		printf("creating edge with %d %d position\n",edge_s,edge_d);
+		//printf("creating edge with %d %d position\n",edge_s,edge_d);
 		vet_edges[edge_s-1][edge_d-1] = create_edge(v_start,value);
 	}
 	*o = origem;
@@ -101,6 +101,7 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 			criada++;
 		}
 		else{
+			
 			insert(list,att_o,att_d,att_t,att_vel);
 		}
 

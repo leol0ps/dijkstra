@@ -15,13 +15,14 @@ int main(int argc, char** argv){
 	Edge*** vet_edges = read_entry(argv[1],&origem,&destino,&v,&att);
 	for(int i = 0; i < v; i++){
 		for(int k = 0; k < v; k++){
-			print_edge(vet_edges[i][k],i,k);
+		//	print_edge(vet_edges[i][k],i,k);
 			count++;
 		}
 	}
 	if(att==NULL){
 		printf("ta errado otario\n");
 	}
+	print_list(att);
 	printf("%d %d \n", origem ,  destino);
 	int* result = rota(vet_edges,v,(origem-1),(destino-1),att,&time,&path_size,&distance);
 	for(int i = 0; i < path_size-1; i++){

@@ -59,20 +59,38 @@ int* dijkstra(Edge*** arestas, int v,int origem, int destino, double** time){
 	PQ_finish(heap);
  	return st;
 }
-void check_att(List** a, Edge*** edges, double time){
-	if(*a == NULL)
-			return;
-	if(time_first(*a)> time)
-			return;
+List* check_att(List* a, Edge*** edges, double time){
+	List* aux = a ;
+	while(aux != NULL){
+		if(time_first(aux) > time){
+			return aux;
+		}
+		else{			
+	        List* temp = aux->next;
+			int i = att_origem(aux) - 1;
+			int j = att_destino(aux) - 1; 	
+			change_edge_vel(edges[i][j],get_att_vel(aux));
+			aux = remove_first(aux);
+			aux = temp;
+		}
+	}
+	return aux;
+	/*List* aux = a->next;
+	if(a == NULL)
+			return a;
+	if(time_first(a) >= time)
+			return a;
 	else{
 		printf("chegou aqui\n");
-	    int i = att_origem(*a)-1;
-   	   	int j = att_destino(*a)-1;   
- 	    change_edge_vel(edges[i][j],get_att_vel(*a));
-		*a = remove_first(*a);
-		check_att(a,edges,time);
+	    int i = att_origem(a)-1;
+   	   	int j = att_destino(a)-1;   
+ 	    change_edge_vel(edges[i][j],get_att_vel(a));
+		printf("%lf %d",time_first(a), (aux ==NULL));
+		a = remove_first(a);
+		aux = check_att(aux,edges,time);
 		printf("passou aqui\n");
-	}
+		return aux;
+	}*/
 }
 int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size, double* distance){
 //	int* st = malloc(v*sizeof(int));
@@ -97,7 +115,9 @@ int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* pa
 		total_time += wt[last];
 	    printf("total time %lf\n",total_time);
 		i = last;
-		check_att(&att,arestas,total_time);
+		if(att!=NULL){
+			att = check_att(att,arestas,total_time);
+		}
 		path[j] = last;
 		free(st);
 		free(wt);
