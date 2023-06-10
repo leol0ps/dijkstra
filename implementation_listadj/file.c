@@ -13,7 +13,12 @@ Adj** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	int n_edges;
 	int edge_s,edge_d = 0;
 	double v_start;
-	double value;
+	double value = 0;
+	int att_o = 0,att_d = 0;
+	double att_t = 0;
+	double att_vel = 0;
+	int criada = 0;
+	List* list = NULL;
 	entry = fopen(entry_name,"r");
 	if(entry == NULL){
 		printf("sem arquivo \n");
@@ -41,7 +46,7 @@ Adj** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	for(int i = 0 ; i < n_vertices; i++){
 		vet_edges[i] = NULL;
 	}
-	printf("%d %d %lf %d\n", origem,destino,v_start,n_edges);
+	//printf("%d %d %lf %d\n", origem,destino,v_start,n_edges);
 	for(int i = 0; i < n_edges ; i++){
 		read = getline(&line,&len,entry);
 		aux = strtok(line,";");
@@ -70,11 +75,6 @@ Adj** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	*o = origem;
     *v = n_vertices;	
 	*d = destino;
-	int att_o = 0,att_d = 0;
-	double att_t = 0;
-	double att_vel = 0;
-	int criada = 0;
-	List* list;
 	while ((read = getline(&line, &len, entry)) != -1){
 		aux = strtok(line,";");
 		int j = 0;

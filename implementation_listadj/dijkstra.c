@@ -1,7 +1,7 @@
 #include "dijkstra.h"
 #include <float.h>
 #define P (wt[j] + (t->dist/t->vel))
-Edge* create_edge(double vel, double dis){
+Edge* create_edge(double vel, double dis){ // atencao este tipo eh utilizado somente na implemntacao com matriz
 
 	Edge* a = malloc(sizeof(Edge));
 	a->dist = dis;
@@ -30,7 +30,7 @@ void free_edge(Edge* a){
 }
 
 int* dijkstra(Adj** arestas, int v,int origem, int destino, double** time, double** distance){
-	printf("%d %d origem e destino dijkstra\n", origem, destino);
+	//printf("%d %d origem e destino dijkstra\n", origem, destino);
 	int j,w;
 	Adj* t;
 	int* st = malloc(v*sizeof(int));
@@ -81,8 +81,6 @@ List* check_att(List* a, Adj** edges, double time){
 	return aux;
 }
 int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size, double* distance){
-//	int* st = malloc(v*sizeof(int));
-//	double* wt = malloc(v*sizeof(double));
 	int* st = NULL;
 	double* wt;
 	double* dist;
@@ -103,7 +101,7 @@ int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path
 		x = destino;
 		total_distance += dist[last];
 		total_time += wt[last];
-	    printf("total time %lf\n",total_time);
+	    // printf("total time %lf\n",total_time);
 		i = last;
 		if(att!=NULL){
 			att = check_att(att,arestas,total_time);
@@ -119,10 +117,9 @@ int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path
 	path[j] = destino;
 	j++;
 	*path_size = j;
-	printf("valor de j %d \n",j);
+	//printf("valor de j %d \n",j);
 	*path_time = total_time;
 	*distance = total_distance;
-	*distance = total_distance;	
 	free_list(att);
 	return path;	
 }

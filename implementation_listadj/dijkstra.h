@@ -5,7 +5,7 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
-typedef struct edge{
+typedef struct edge{ // tipo utilizado na implementacao com matriz
 	double vel;
 	double dist;
 }Edge;
