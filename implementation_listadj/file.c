@@ -1,7 +1,7 @@
 #define  _POSIX_C_SOURCE 200810L
 #include "file.h"
 
-Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
+Adj** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	FILE* entry = NULL;
 	int origem;
 	int destino;
@@ -37,13 +37,9 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 		
 	read = getline(&line,&len,entry);
 	v_start = atof(line)/3.6; // division to convert from km/h to m/s
-	Edge*** vet_edges = malloc(n_vertices*sizeof(Edge**));
+	Adj** vet_edges = malloc(n_vertices*sizeof(Adj*));
 	for(int i = 0 ; i < n_vertices; i++){
-		vet_edges[i] = malloc(n_vertices*sizeof(Edge*));
-	}
-	for(int i = 0; i < n_vertices; i++){
-		for(int j = 0; j < n_vertices; j++)
-			vet_edges[i][j] = NULL;
+		vet_edges[i] = NULL;
 	}
 	printf("%d %d %lf %d\n", origem,destino,v_start,n_edges);
 	for(int i = 0; i < n_edges ; i++){
@@ -62,9 +58,14 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 			aux = strtok(NULL,";");
 		
 		}
-		
+		if(vet_edges[edge_s-1] == NULL){
+			vet_edges[edge_s-1] = create_adj_list(edge_d-1,v_start,value);
+		}
+		else{
+			insert_adj(vet_edges[edge_s-1], edge_d-1,v_start,value);
+		}	
 		//printf("creating edge with %d %d position\n",edge_s,edge_d);
-		vet_edges[edge_s-1][edge_d-1] = create_edge(v_start,value);
+		//vet_edges[edge_s-1][edge_d-1] = create_edge(v_start,value);
 	}
 	*o = origem;
     *v = n_vertices;	
@@ -112,12 +113,10 @@ Edge*** read_entry(char* entry_name, int* o,int* d,int* v,List** att){
 	return vet_edges;
 }
 
-void free_mat_edge(Edge*** a, int n){
+void free_vet_edge(Adj** a, int n){
 	for(int i =0 ; i < n; i++){
-		for(int j = 0; j < n; j++){
-			free_edge(a[i][j]);	
-		}
-		free(a[i]);
+
+		free_adj(a[i]);
 	}
 
 	free(a);

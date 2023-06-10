@@ -1,6 +1,6 @@
 #include "dijkstra.h"
 #include <float.h>
-#define P (wt[j] + edge_time_spent(arestas[j][i]))
+#define P (wt[j] + (t->dist/t->vel))
 Edge* create_edge(double vel, double dis){
 
 	Edge* a = malloc(sizeof(Edge));
@@ -29,9 +29,10 @@ void free_edge(Edge* a){
 	free(a);
 }
 
-int* dijkstra(Edge*** arestas, int v,int origem, int destino, double** time){
+int* dijkstra(Adj** arestas, int v,int origem, int destino, double** time){
 	printf("%d %d origem e destino dijkstra\n", origem, destino);
 	int j,w;
+	Adj* t;
 	int* st = malloc(v*sizeof(int));
 	double* wt = malloc(v*sizeof(double));
 	double total_time = 0;
@@ -46,8 +47,8 @@ int* dijkstra(Edge*** arestas, int v,int origem, int destino, double** time){
 	while(!PQ_empty(heap)){
 		Item a = PQ_delmin(heap); 
 		if(wt[j = id(a)]!= DBL_MAX){
-			for(int i = 0; i < v ; i++){
-				 if(P < wt[w = i]){
+			for(t = arestas[j]; t!= NULL ; t = t->next){
+				 if(P < wt[w = t->d]){
 				 	wt[w] = P;
 					PQ_decrease_key(w,P,heap);
 					st[w] = j;
@@ -59,7 +60,7 @@ int* dijkstra(Edge*** arestas, int v,int origem, int destino, double** time){
 	PQ_finish(heap);
  	return st;
 }
-List* check_att(List* a, Edge*** edges, double time){
+List* check_att(List* a, Adj** edges, double time){
 	List* aux = a ;
 	while(aux != NULL){
 		if(time_first(aux) > time){
@@ -69,7 +70,8 @@ List* check_att(List* a, Edge*** edges, double time){
 	        List* temp = aux->next;
 			int i = att_origem(aux) - 1;
 			int j = att_destino(aux) - 1; 	
-			change_edge_vel(edges[i][j],get_att_vel(aux));
+			edit_adj(edges[i],get_att_vel(aux), j);
+			//change_edge_vel(edges[i][j],get_att_vel(aux));
 			aux = remove_first(aux);
 			aux = temp;
 		}
@@ -92,7 +94,7 @@ List* check_att(List* a, Edge*** edges, double time){
 		return aux;
 	}*/
 }
-int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size, double* distance){
+int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path_time, int* path_size, double* distance){
 //	int* st = malloc(v*sizeof(int));
 //	double* wt = malloc(v*sizeof(double));
 	int* st = NULL;
@@ -130,7 +132,7 @@ int* rota(Edge*** arestas, int v, int origem, int destino, List* att, double* pa
 	printf("valor de j %d \n",j);
 	*path_time = total_time;
 	for(int i = 1; i < j; i++){
-		total_distance += edge_distance(arestas[path[i-1]][path[i]]); 
+		total_distance += 1; 
 	}
 	*distance = total_distance;	
 	free_list(att);
