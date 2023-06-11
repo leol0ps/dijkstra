@@ -5,6 +5,10 @@
 #include "adjlist.h"
 #include <stdlib.h>
 int main(int argc, char** argv){
+	if(argc < 3){
+		printf("falta argumentos\n");
+		return 0;
+	}
 	int origem;
 	int destino;
 	int v,path_size;
