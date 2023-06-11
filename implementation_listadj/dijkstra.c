@@ -1,35 +1,8 @@
 #include "dijkstra.h"
 #include <float.h>
 #define P (wt[j] + (t->dist/t->vel))
-Edge* create_edge(double vel, double dis){ // atencao este tipo eh utilizado somente na implemntacao com matriz
 
-	Edge* a = malloc(sizeof(Edge));
-	a->dist = dis;
-	a->vel = vel;
-	return a;
-}
-void change_edge_vel(Edge* a, double n){
-	a->vel = n; 
-}
-double edge_distance(Edge* a){
-	return a->dist;
-}
-double edge_time_spent(Edge* a){
-	if(a == NULL)
-			return DBL_MAX;
-	return a->dist/a->vel;
-}
-void print_edge(Edge* a, int o, int d){
-	if(a ==NULL)
-			return;
-	printf("origem %d destino %d vel %lf\n",o,d,a->dist );
-}
-
-void free_edge(Edge* a){
-	free(a);
-}
-
-int* dijkstra(Adj** arestas, int v,int origem, int destino, double** time, double** distance){
+int* dijkstra(Adj** arestas, int v,int origem, double** time, double** distance){
 	//printf("%d %d origem e destino dijkstra\n", origem, destino);
 	int j,w;
 	Adj* t;
@@ -93,7 +66,7 @@ int* rota(Adj** arestas, int v, int origem, int destino, List* att, double* path
 	int j = 0;
 	while(i!=destino){
 		j++;
-		st = dijkstra(arestas,v,i,destino, &wt,&dist);
+		st = dijkstra(arestas,v,i, &wt,&dist);
 		while(st[x]!= -1){ // condicao quebra na raiz da spt
 			last = x;
 			x = st[x];
